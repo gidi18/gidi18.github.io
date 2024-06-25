@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Site</title>
-    <style>
-        h1,h2 {
-            color: red;
-        }
-    </style>
+<style>
+#message {
+  display: none;
+  font-size: 20px;
+  margin-top: 20px;
+}
+button {
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
-    <h1>This is my github pages website</h1>
-    <h2>hi my name is gideon</h2>
+
+<h2>Hey Chante,</h2>
+<p>I have something important to tell you. Tap the space below to reveal it:</p>
+
+<button onclick="document.getElementById('message').style.display='block'; this.style.display='none';">Tap Here</button>
+
+<div id="message">
+  <p>Just a reminder that you are beautiful!</p>
+</div>
+
+<p>Hope this brightens your day!</p>
+
+<p>Cheers,</p>
+<p>[Your Name]</p>
+
 </body>
 </html>
