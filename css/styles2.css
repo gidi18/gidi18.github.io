@@ -102,3 +102,29 @@ body {
     background-color: #8a2e33;
   }
   
+  /* Both buttons will have the same size and styling */
+.login-buttons-container button {
+  width: 120px;
+  height: 40px;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  border: none;
+  border-radius: 5px;
+  background-color: #AB3740;
+  color: #fff;
+  transition: background-color 0.3s, left 0.3s ease, top 0.3s ease;
+  cursor: pointer;
+  position: absolute; /* Use absolute positioning */
+}
+
+/* Position the YES button on the left */
+#yesBtn {
+  left: 20px;
+  top: calc(50% - 20px);
+}
+
+/* Position the NO button to the right of the YES button with a 20px gap */
+#noBtn {
+  left: 160px; /* 20px (left margin) + 120px (YES button width) + 20px (gap) */
+  top: calc(50% - 20px);
+}
