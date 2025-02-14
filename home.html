@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Valentines Day</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+  <!-- Overlay (stays on top) -->
+  <div class="background-overlay"></div>
+
+  <!-- Floating container (parent) -->
+  <div class="floating-container">
+    
+    <!-- SLIDE 1 -->
+    <div class="centered-div slide1" id="slide1">
+      <!-- Left side: envelope image -->
+      <div class="inner-div image-container">
+        <img src="images/envelope.png" alt="centered image" class="centered-image" />
+      </div>
+      <!-- Right side: text and custom switch -->
+      <div class="inner-div content-container">
+        <div class="text" style="margin-top: 50px;">Happy Valentines Day</div>
+        <div class="love">
+          <span class="love-mode-text">Love mode:</span>
+          <input id="switch" type="checkbox">
+          <label class="love-heart" for="switch">
+            <i class="left"></i>
+            <i class="right"></i>
+            <i class="bottom"></i>
+            <div class="round"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SLIDE 2 -->
+    <div class="centered-div slide2" id="slide2">
+      <video class="full-video" controls >
+        <source src="video/IMG_8897.MOV" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    
+
+</div>
+
+  </div>
+
+  <!-- Pagination Dots (one dot per slide) -->
+  <div class="carousel-dots">
+    <span class="dot active" data-slide="0"></span>
+    <span class="dot" data-slide="1"></span>
+  </div>
+
+  <!-- JavaScript to handle slide transitions & dots -->
+  <script>
+    // Slides
+    const slides = document.querySelectorAll('.centered-div');
+    let currentSlide = 0; // Start with the first slide (index 0)
+
+    // Switch (Love mode) logic
+    const switchInput = document.getElementById('switch');
+    switchInput.addEventListener('change', () => {
+  if (switchInput.checked && currentSlide < slides.length - 1) {
+    currentSlide++;
+    updateSlides();
+    updateDots();
+
+    // Delay unchecking so the animation can play
+    setTimeout(() => {
+      switchInput.checked = false;
+    }, 1900); // 600ms = slightly longer than .5s animation
+  }
+});
+
+
+    // Dots
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const slideIndex = parseInt(dot.getAttribute('data-slide'));
+        currentSlide = slideIndex;
+        updateSlides();
+        updateDots();
+      });
+    });
+
+    // Position slides based on currentSlide
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        if (index < currentSlide) {
+          // Slide is to the left
+          slide.style.transform = 'translateX(calc(-100% - 100px))';
+        } else if (index === currentSlide) {
+          // Current slide in view
+          slide.style.transform = 'translateX(0)';
+        } else {
+          // Slide is to the right
+          slide.style.transform = 'translateX(calc(100% + 100px))';
+        }
+      });
+    }
+
+    // Highlight the active dot
+    function updateDots() {
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[currentSlide].classList.add('active');
+    }
+
+    // Initialize positions
+    updateSlides();
+    updateDots();
+
+    // After updating slides, check if slide2 is active and play the video.
+if (currentSlide === 1) {
+  const video = document.querySelector('.full-video');
+  video.play();
+}
+
+
+  </script>
+</body>
+</html>

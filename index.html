@@ -1,29 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-#message {
-  display: none;
-  font-size: 20px;
-  margin-top: 20px;
-}
-button {
-  font-size: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Login</title>
+  <link rel="stylesheet" href="css/styles2.css">
 </head>
 <body>
-
-<h2>Hi Chante,</h2>
-<p>I have something important to tell you.</p>
-
-<button onclick="document.getElementById('message').style.display='block'; this.style.display='none';">Tap Here</button>
-
-<div id="message">
-  <p>Just a reminder that you are beautiful!</p>
-</div>
-
+  <!-- Background overlay (same as your home page) -->
+  <div class="background-overlay"></div>
+  
+  <!-- Main login container -->
+  <div class="login-container">
+    <!-- Top sub container: Image -->
+    <div class="login-image-container">
+      <!-- Initially display a neutral image -->
+      <img src="images/n1.png" alt="Valentine Image" id="valentineImage">
+    </div>
+    
+    <!-- Middle sub container: Text -->
+    <div class="login-text-container">
+      <h1>Will you be my valentine?</h1>
+    </div>
+    
+    <!-- Bottom sub container: Buttons -->
+    <div class="login-buttons-container">
+      <!-- YES button starts off disabled -->
+      <button id="yesBtn" disabled>YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+  
+  <!-- JavaScript logic -->
+  <script>
+    // Get the image and buttons
+    const valentineImage = document.getElementById('valentineImage');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    
+    // Track how many times NO has been pressed
+    let noClicks = 0;
+    
+    noBtn.addEventListener('click', () => {
+      noClicks++;
+      if (noClicks === 1) {
+        // First NO press => show first sad image
+        valentineImage.src = "images/n2.png";
+      } else if (noClicks === 2) {
+        // Second NO press => show second sad image and enable YES button
+        valentineImage.src = "images/n3.png";
+        yesBtn.disabled = false; // Now the YES button can be clicked
+      } 
+      // If the user presses NO more than twice, you can decide what happens
+      // (e.g., keep showing n3.png or alternate, etc.)
+    });
+    
+    // When the "YES" button is clicked, show a happy image and redirect after a short delay
+    yesBtn.addEventListener('click', () => {
+      valentineImage.src = "images/y1.png"; // your happy image path
+      // After 1.5 seconds, redirect to the home page
+      setTimeout(() => {
+        window.location.href = "home.html"; // your home page URL
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
