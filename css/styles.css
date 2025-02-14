@@ -1,0 +1,252 @@
+/* BODY & OVERLAY */
+body {
+  background-image: url('../images/marble-back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column; /* So we can stack the container & dots vertically */
+  justify-content: center;
+  align-items: center;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url('../images/overlay3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Floating Container (parent) */
+.floating-container {
+  position: relative;
+  width: 1050px;      /* match your desired slide width */
+  height: 550px;      /* match your desired slide height */
+  overflow: hidden;   /* hides the slide that moves offscreen */
+  border-radius: 30px;
+  box-shadow: 0 40px 40px rgba(0, 0, 0, .60);
+  animation: float 3s ease-in-out infinite; /* floating up/down */
+  z-index: 1;         /* on top of background */
+}
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+/* Slides: absolutely positioned inside .floating-container */
+.centered-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1050px;
+  height: 550px;
+
+  background-image: url('../images/otherback.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 20px;
+  display: flex;
+  transition: transform 2.5s ease-in-out;
+}
+
+/* Slide 1 starts visible, Slide 2 starts off to the right + 20px gap */
+.slide1 {
+  transform: translateX(0);
+  z-index: 2; /* ensure it's on top initially */
+}
+.slide2 {
+  transform: translateX(calc(100% + 100px));
+  z-index: 1;
+}
+
+/* INNER DIVS (same as before) */
+.inner-div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #AB3740;
+}
+
+.content-container {
+  flex-direction: column;
+  gap: 0px;
+}
+
+.centered-image {
+  width: 80%;
+  height: auto;
+}
+
+/* SWITCH / LOVE STYLES (unchanged) */
+.love-heart:before,
+#switch {
+  display: none;
+}
+.love-heart,
+.love-heart::after {
+  border-color: hsl(231deg 28% 86%);
+  border: 1px solid;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  width: 10px;
+  height: 8px;
+  border-bottom: 0;
+}
+.round {
+  position: absolute;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  background: hsl(0deg 0% 100%);
+  box-shadow: rgb(0 0 0 / 24%) 0px 0px 4px 0px;
+  border-radius: 100%;
+  left: 0px;
+  bottom: -1px;
+  transition: all .5s ease;
+  animation: check-animation2 .5s forwards;
+}
+input:checked + label .round {
+  transform: translate(0px, 0px);
+  animation: check-animation .5s forwards;
+  background-color: hsl(0deg 0% 100%);
+}
+@keyframes check-animation {
+  0%   { transform: translate(0px, 0px); }
+  50%  { transform: translate(0px, 7px); }
+  100% { transform: translate(7px, 7px); }
+}
+@keyframes check-animation2 {
+  0%   { transform: translate(7px, 7px); }
+  50%  { transform: translate(0px, 7px); }
+  100% { transform: translate(0px, 0px); }
+}
+.love-heart {
+  box-sizing: border-box;
+  position: relative;
+  transform: rotate(-45deg) translate(-50%, -33px) scale(4);
+  display: block;
+  border-color: hsl(231deg 28% 86%);
+  cursor: pointer;
+  top: 0;
+}
+input:checked + .love-heart,
+input:checked + .love-heart::after,
+input:checked + .love-heart .bottom {
+  border-color: hsl(347deg 81% 61%);
+  box-shadow: inset 6px -5px 0px 2px hsl(347deg 99% 72%);
+}
+.love-heart::after,
+.love-heart .bottom {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border-color: hsl(231deg 28% 86%);
+}
+.love-heart::after {
+  right: -9px;
+  transform: rotate(90deg);
+  top: 7px;
+}
+.love-heart .bottom {
+  width: 11px;
+  height: 11px;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: hsl(231deg 28% 86%);
+  left: -1px;
+  top: 5px;
+  border-radius: 0px 0px 0px 5px;
+}
+
+/* "Love mode" container styling */
+.love {
+  display: inline-flex;
+  align-items: center;
+  gap: 60px;
+  background-image: url('../images/loveswitch.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  padding: 16px 24px;
+  border-radius: 8px;
+  min-width: 250px;
+  min-height: 190px;
+}
+.love-mode-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* PAGINATION DOTS */
+.carousel-dots {
+  /* Place dots below the floating container */
+  position: relative; /* so it can center within body */
+  margin-top: 40px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* Each dot */
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #ff0037; /* highlight the active slide's dot */
+}
+
+.dot:hover {
+  background-color: #999;
+}
+
+.full-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit; /* Keeps the parent's border-radius */
+}
+
+
+/* Override for slide2 so the video fills the space exactly */
+.slide2 {
+  padding: 0; /* Remove the default 20px padding from .centered-div */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
